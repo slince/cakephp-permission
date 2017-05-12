@@ -1,0 +1,29 @@
+{
+    "name": "slince/cakephp-permission",
+    "description": "The library provides a flexible way to add role-based access control management to CakePHP 3.x",
+    "type": "cakephp-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tao",
+            "email": "taosikai@yeah.net"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "cakephp/cakephp": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Slince\\CakePermission\\": "./src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Slince\\CakePermission\\Tests\\": "./tests"
+        }
+    }
+}
