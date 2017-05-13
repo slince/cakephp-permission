@@ -16,6 +16,6 @@ class PermissionsTable extends Table
     {
         parent::initialize($config);
         $this->setTable(Configure::read('Permission.tableNameMap.permissions') ?: 'permissions');
-        $this->buildRelationship();
+        $this->buildPermissionRelationship();
     }
 }

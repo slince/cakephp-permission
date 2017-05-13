@@ -11,7 +11,7 @@ use Cake\ORM\Query;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Slince\CakePermission\Constants;
-use Slince\CakePermission\Model\TableFactory;
+use Slince\CakePermission\TableFactory;
 
 trait UserTrait
 {

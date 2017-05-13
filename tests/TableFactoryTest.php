@@ -1,15 +1,19 @@
 <?php
-namespace Slince\CakePermission\Tests\Model;
+namespace Slince\CakePermission\Tests;
 
 use Cake\Core\Configure;
-use PHPUnit\Framework\TestCase;
 use Slince\CakePermission\Model\Table\PermissionsTable;
 use Slince\CakePermission\Model\Table\RolesTable;
 use Slince\CakePermission\Model\Table\UsersTable;
-use Slince\CakePermission\Model\TableFactory;
+use Slince\CakePermission\TableFactory;
 
 class TableFactoryTest extends TestCase
 {
+    public function setUp()
+    {
+        Configure::delete('Permission');
+    }
+
     public function testGetModelClass()
     {
         $this->assertEquals(UsersTable::class, TableFactory::getModelClass('Users'));
@@ -28,6 +32,7 @@ class TableFactoryTest extends TestCase
 
     public function testGetModelInstance()
     {
-
+        $userModel = TableFactory::getUserModel();
+        $this->assertInstanceOf(UsersTable::class, $userModel);
     }
 }

@@ -6,7 +6,7 @@
 namespace Slince\CakePermission\Model\Table;
 
 use Cake\Core\Configure;
-use Slince\CakePermission\Model\TableFactory;
+use Slince\CakePermission\TableFactory;
 
 trait UsersTableTrait
 {

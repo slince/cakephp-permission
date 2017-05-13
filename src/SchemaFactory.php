@@ -19,11 +19,13 @@ class SchemaFactory
         $schema = new TableSchema(Configure::read('Permission.tableNameMap.roles') ?: 'roles');
 
         $schema->addColumn('id', [
-            'type' => 'integer',
-            'default' => null,
-            'null' => false,
-            'autoIncrement' => true
-        ]);
+                'type' => 'integer',
+                'autoIncrement' => true
+            ])
+            ->addConstraint('primary', [
+                'type' => 'primary',
+                'columns' => ['id']
+            ]);
         $schema->addColumn('name', [
             'type' => 'string',
             'length'  => 255,
@@ -59,10 +61,12 @@ class SchemaFactory
 
         $schema->addColumn('id', [
             'type' => 'integer',
-            'default' => null,
-            'null' => false,
             'autoIncrement' => true
-        ]);
+        ])
+            ->addConstraint('primary', [
+                'type' => 'primary',
+                'columns' => ['id']
+            ]);
 
         $schema->addColumn('name', [
             'type' => 'string',

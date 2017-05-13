@@ -3,7 +3,7 @@
  * CakePHP permission handling library
  * @author Tao <taosikai@yeah.net>
  */
-namespace Slince\CakePermission\Model;
+namespace Slince\CakePermission;
 
 use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;

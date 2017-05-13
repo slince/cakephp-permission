@@ -11,7 +11,7 @@ use Cake\ORM\Query;
 use Cake\Utility\Text;
 use Slince\CakePermission\Constants;
 use Slince\CakePermission\Exception\InvalidArgumentException;
-use Slince\CakePermission\Model\TableFactory;
+use Slince\CakePermission\TableFactory;
 
 trait RoleTrait
 {
@@ -90,7 +90,7 @@ trait RoleTrait
             ];
         }
         $arguments['slug'] = Text::slug($arguments['name']);
-        $role = TableFactory::getRoleModel()->newEntity($arguments);
+        $role = TableFactory::getRoleModel()->newEntity($arguments, ['validate' => 'permission']);
         if (TableFactory::getRoleModel()->save($role) === false) {
             throw new InvalidArgumentException('Failed to create the role');
         }

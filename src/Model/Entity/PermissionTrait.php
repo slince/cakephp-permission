@@ -8,14 +8,14 @@ namespace Slince\CakePermission\Model\Entity;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Utility\Text;
 use Slince\CakePermission\Exception\InvalidArgumentException;
-use Slince\CakePermission\Model\TableFactory;
+use Slince\CakePermission\TableFactory;
 
 trait PermissionTrait
 {
     /**
      * Gets the permission by its name
      * @param $name
-     * @return PermissionTrait
+     * @return Permission
      */
     public static function find($name)
     {
@@ -25,7 +25,7 @@ trait PermissionTrait
     /**
      * Creates a role
      * @param $arguments
-     * @return RoleTrait
+     * @return Permission
      */
     public static function create($arguments)
     {
@@ -35,11 +35,10 @@ trait PermissionTrait
             ];
         }
         $arguments['slug'] = Text::slug($arguments['name']);
-        $permission = TableFactory::getPermissionModel()->newEntity($arguments);
+        $permission = TableFactory::getPermissionModel()->newEntity($arguments, ['validate' => 'permission']);
         if (TableFactory::getPermissionModel()->save($permission) === false) {
             throw new InvalidArgumentException(sprintf('Failed to create the permission "%s"',
-                $permission->get('name'))
-            );
+                $arguments['name']));
         }
         return $permission;
     }
@@ -47,15 +46,15 @@ trait PermissionTrait
     /**
      * Finds the permission by its name, if it does not exists, the role will be created
      * @param $name
-     * @return RoleTrait
+     * @return Permission
      */
     public static function findOrCreate($name)
     {
         try {
-            $role = static::find($name);
+            $permission = static::find($name);
         } catch (RecordNotFoundException $exception) {
-            $role = static::create($name);
+            $permission = static::create($name);
         }
-        return $role;
+        return $permission;
     }
 }

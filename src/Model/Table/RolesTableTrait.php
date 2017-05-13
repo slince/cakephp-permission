@@ -5,10 +5,11 @@
  */
 namespace Slince\CakePermission\Model\Table;
 
+use Cake\Validation\Validator;
 use Slince\CakePermission\Constants;
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
-use Slince\CakePermission\Model\TableFactory;
+use Slince\CakePermission\TableFactory;
 
 trait RolesTableTrait
 {
@@ -29,6 +30,16 @@ trait RolesTableTrait
             'saveStrategy' => 'append'
         ]);
         $this->addBehavior('Timestamp');
+    }
+
+    public function validationPermission(Validator $validator)
+    {
+        $validator->add('name', 'unique', [
+            'rule' => 'validateUnique',
+            'message' => 'The role already exists',
+            'provider' => 'table'
+        ]);
+        return $validator;
     }
 
     /**
