@@ -60,6 +60,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
 
     protected static function createTables()
     {
+        static::createTable(SchemaFactory::getUsersSchema());
         static::createTable(SchemaFactory::getRolesSchema());
         static::createTable(SchemaFactory::getPermissionsSchema());
         static::createTable(SchemaFactory::getUsersRolesSchema());
@@ -68,6 +69,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
 
     protected static function dropTables()
     {
+        static::dropTable(SchemaFactory::getUsersSchema());
         static::dropTable(SchemaFactory::getRolesSchema());
         static::dropTable(SchemaFactory::getPermissionsSchema());
         static::dropTable(SchemaFactory::getUsersRolesSchema());

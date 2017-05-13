@@ -7,10 +7,8 @@ namespace Slince\CakePermission\Model\Table;
 
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
-use Cake\Event\Event;
 use Cake\Validation\Validator;
 use Slince\CakePermission\Constants;
-use Slince\CakePermission\Model\Entity\Permission;
 use Slince\CakePermission\TableFactory;
 
 trait PermissionsTableTrait
@@ -41,7 +39,7 @@ trait PermissionsTableTrait
      * Refreshes the cache
      * @param int $roleId
      */
-    public function refreshCache($roleId)
+    public static function refreshCache($roleId)
     {
         Cache::delete(sprintf(Constants::CACHE_PERMISSIONS, $roleId));
     }

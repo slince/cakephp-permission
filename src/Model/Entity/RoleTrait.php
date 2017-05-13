@@ -11,6 +11,7 @@ use Cake\ORM\Query;
 use Cake\Utility\Text;
 use Slince\CakePermission\Constants;
 use Slince\CakePermission\Exception\InvalidArgumentException;
+use Slince\CakePermission\Model\Table\PermissionsTableTrait;
 use Slince\CakePermission\TableFactory;
 
 trait RoleTrait
@@ -27,7 +28,9 @@ trait RoleTrait
         if (is_string($permission)) {
             $permission = Permission::find($permission);
         }
-        return TableFactory::getRoleModel()->association('Permissions')->link($this, [$permission]);
+        $result = TableFactory::getRoleModel()->association('Permissions')->link($this, [$permission]);
+        PermissionsTableTrait::refreshCache($this->id);
+        return $result;
     }
 
     /**
@@ -40,7 +43,9 @@ trait RoleTrait
         if (is_string($permission)) {
             $permission = Permission::find($permission);
         }
-        return TableFactory::getRoleModel()->association('Permissions')->unlink($this, [$permission]);
+        $result = TableFactory::getRoleModel()->association('Permissions')->unlink($this, [$permission]);
+        PermissionsTableTrait::refreshCache($this->id);
+        return $result;
     }
 
     /**
@@ -49,7 +54,10 @@ trait RoleTrait
      */
     public function revokeAllPermissions()
     {
-        return TableFactory::getRoleModel()->association('Permissions')->unlink($this, $this->getAllPermissions());
+        $result = TableFactory::getRoleModel()->association('Permissions')->unlink($this,
+            $this->getAllPermissions());
+        PermissionsTableTrait::refreshCache($this->id);
+        return $result;
     }
 
     /**

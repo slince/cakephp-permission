@@ -11,6 +11,7 @@ use Cake\ORM\Query;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Slince\CakePermission\Constants;
+use Slince\CakePermission\Model\Table\RolesTableTrait;
 use Slince\CakePermission\TableFactory;
 
 trait UserTrait
@@ -20,10 +21,11 @@ trait UserTrait
     /**
      * Alias of "hasAnyPermission"
      * @param $permission
+     * @return boolean
      */
     public function can($permission)
     {
-        $this->hasAnyPermission($permission);
+        return $this->hasAnyPermission($permission);
     }
 
     /**
@@ -34,7 +36,9 @@ trait UserTrait
     public function attachRole($role)
     {
         $role = is_string($role) ? Role::find($role) : $role;
-        return TableFactory::getUserModel()->association('Roles')->link($this, [$role]);
+        $result = TableFactory::getUserModel()->association('Roles')->link($this, [$role]);
+        RolesTableTrait::refreshCache($this->id);
+        return $result;
     }
 
     /**
@@ -45,7 +49,9 @@ trait UserTrait
     public function removeRole($role)
     {
         $role = is_string($role) ? Role::find($role) : $role;
-        return TableFactory::getUserModel()->association('Roles')->unlink($this, [$role]);
+        $result = TableFactory::getUserModel()->association('Roles')->unlink($this, [$role]);
+        RolesTableTrait::refreshCache($this->id);
+        return $result;
     }
 
     /**
@@ -53,7 +59,9 @@ trait UserTrait
      */
     public function removeAllRoles()
     {
-        return TableFactory::getUserModel()->association('Roles')->unlink($this, $this->allRoles());
+        $result = TableFactory::getUserModel()->association('Roles')->unlink($this, $this->allRoles());
+        RolesTableTrait::refreshCache($this->id);
+        return $result;
     }
 
     /**

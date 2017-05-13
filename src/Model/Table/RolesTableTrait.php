@@ -46,7 +46,7 @@ trait RolesTableTrait
      * Refreshes the cache
      * @param int $userId
      */
-    public function refreshCache($userId)
+    public static function refreshCache($userId)
     {
         Cache::delete(sprintf(Constants::CACHE_ROLES, $userId));
     }

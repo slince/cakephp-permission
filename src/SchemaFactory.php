@@ -11,6 +11,31 @@ use Cake\Database\Schema\TableSchema;
 class SchemaFactory
 {
     /**
+     * Gets the users table schema
+     * @return TableSchema
+     */
+    public static function getUsersSchema()
+    {
+        $schema = new TableSchema(Configure::read('Permission.tableNameMap.users') ?: 'users');
+
+        $schema->addColumn('id', [
+            'type' => 'integer',
+            'autoIncrement' => true
+        ])
+            ->addConstraint('primary', [
+                'type' => 'primary',
+                'columns' => ['id']
+            ]);
+        $schema->addColumn('name', [
+            'type' => 'string',
+            'length'  => 255,
+            'default' => '',
+            'null' => false
+        ]);
+        return $schema;
+    }
+
+    /**
      * Gets the roles table schema
      * @return TableSchema
      */
