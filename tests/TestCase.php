@@ -30,7 +30,8 @@ class TestCase extends \PHPUnit\Framework\TestCase
 
     protected static function setUpDatabaseConnection()
     {
-        Cache::config([
+        //config cache
+        $configs = [
             '_cake_core_' => [
                 'engine' => 'File',
                 'prefix' => 'cake_core_',
@@ -46,15 +47,22 @@ class TestCase extends \PHPUnit\Framework\TestCase
                 'prefix' => 'permission_',
                 'serialize' => true
             ]
-        ]);
-        ConnectionManager::setConfig('default', [
+        ];
+        method_exists(Cache::class, 'setConfig')
+            ? Cache::setConfig($configs) : Cache::config($configs);
+
+        //config database
+        $config = [
             'className' => 'Cake\Database\Connection',
             'driver' => 'Cake\Database\Driver\Sqlite',
             'database' => ':memory:',
             'encoding' => 'utf8',
             'cacheMetadata' => false,
             'quoteIdentifiers' => false,
-        ]);
+        ];
+        method_exists(ConnectionManager::class, 'setConfig')
+            ? ConnectionManager::setConfig('default', $config) : ConnectionManager::config('default', $config);
+
         static::$connection = ConnectionManager::get('default');
     }
 
