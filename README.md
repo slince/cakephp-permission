@@ -76,7 +76,7 @@ Plugin::load('Slince/CakePermission');
         /**
          * The Users model class, remember to modify it
          */
-        //'Users' => App\Model\Table\YourUsersTable::class,
+        'Users' => App\Model\Table\YourUsersTable::class,
 
         /**
          * The Roles model class;If you want to use the default configuration. you don't need to change.
