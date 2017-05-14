@@ -32,6 +32,10 @@ trait RolesTableTrait
         $this->addBehavior('Timestamp');
     }
 
+    /**
+     * @param Validator $validator
+     * @return Validator
+     */
     public function validationPermission(Validator $validator)
     {
         $validator->add('name', 'unique', [

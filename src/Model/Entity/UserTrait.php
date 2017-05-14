@@ -29,11 +29,11 @@ trait UserTrait
     }
 
     /**
-     * Attaches a role for the user
+     * Assigns a role for the user
      * @param string|Role $role
      * @return boolean
      */
-    public function attachRole($role)
+    public function assignRole($role)
     {
         $role = is_string($role) ? Role::find($role) : $role;
         $result = TableFactory::getUserModel()->association('Roles')->link($this, [$role]);
@@ -59,7 +59,7 @@ trait UserTrait
      */
     public function removeAllRoles()
     {
-        $result = TableFactory::getUserModel()->association('Roles')->unlink($this, $this->allRoles());
+        $result = TableFactory::getUserModel()->association('Roles')->unlink($this, $this->getAllRoles() );
         RolesTableTrait::refreshCache($this->id);
         return $result;
     }

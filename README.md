@@ -7,7 +7,7 @@
 
 The library provides a flexible way to add role-based access control management to CakePHP 3.x.  
 
-Inspired by [Laravel Permission](https://github.com/spatie/laravel-permission);
+Inspired by [Laravel Permission](https://github.com/spatie/laravel-permission)
 
 ## Quick example
 
@@ -34,7 +34,13 @@ var_dump($user->hasPermission('edit article')) //output "true"
 composer require slince/cakephp-permission
 ```
 
-2. Add the following configuration to your `app.php`
+2. Load the plugin in `config/bootstrap.php`:
+
+```php
+// Load the plugin.
+Plugin::load('CakePermission');
+```
+3. Add the following configuration to your `app.php`
 
 ```php
 'Permission' => [
@@ -46,22 +52,22 @@ composer require slince/cakephp-permission
         'users' => 'your users table name',
 
         /**
-         * Your roles table
+         * Your roles table;If you want to use the default configuration. you don't need to change.
          */
         //'roles' => 'roles',
 
         /**
-         * Your permissions table
+         * Your permissions table;If you want to use the default configuration. you don't need to change.
          */
         //'permissions' => 'permissions',
 
         /**
-         * The join table between users and roles
+         * The join table between users and roles;If you want to use the default configuration. you don't need to change.
          */
         //'users_roles' => 'users_roles',
 
         /**
-         * The join table between roles and permissions
+         * The join table between roles and permissions;If you want to use the default configuration. you don't need to change.
          */
         //'roles_permissions' => 'roles_permissions',
     ],
@@ -73,26 +79,24 @@ composer require slince/cakephp-permission
         //'Users' => App\Model\Table\YourUsersTable::class,
 
         /**
-         * The Roles model class
+         * The Roles model class;If you want to use the default configuration. you don't need to change.
          */
         //'Roles' => Slince\CakePermission\Model\Table\RolesTable::class,
 
         /**
-         * The Permissions model class
+         * The Permissions model class;If you want to use the default configuration. you don't need to change.
          */
         //'Permissions' => Slince\CakePermission\Model\Table\PermissionsTable::class
     ]
 ]
 ```
-Notes: if you want to use the default configuration. you don't need to change.
 
-3. Generate the permission migration
+4. Generate the permission migration
 
 ```bash
 ./cake permission_migrate
 ```
 If ok, now run the migrate command
-
 ```bash
 ./cake migrations migrate
 ```

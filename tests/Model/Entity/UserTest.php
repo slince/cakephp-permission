@@ -2,17 +2,25 @@
 namespace Slince\CakePermission\Tests\Model\Entity;
 
 use Slince\CakePermission\Model\Entity\Role;
+use Slince\CakePermission\Model\Entity\User;
 use Slince\CakePermission\TableFactory;
 use Slince\CakePermission\Tests\TestCase;
 
 class UserTest extends TestCase
 {
+    /**
+     * @var User
+     */
     protected static $user;
 
+    /**
+     * @var User
+     */
     protected static $admin;
 
     public static function setUpBeforeClass()
     {
+        parent::setUpBeforeClass();
         static::$user = TableFactory::getUserModel()->newEntity([
             'name' => 'foo'
         ]);
@@ -38,7 +46,8 @@ class UserTest extends TestCase
     public function testGetRoles()
     {
         $this->assertCount(2, static::$user->getAllRoles());
-        Role::create('baz');
+        $role = Role::create('baz');
+        static::$user->assignRole($role);
         $this->assertCount(3, static::$user->getAllRoles());
     }
 
