@@ -22,7 +22,7 @@ class PermissionMigrateShell extends Shell
         //Creates the directory if it does not exists
         file_exists($this->migrationFilesPath) || mkdir($this->migrationFilesPath, 0777, true);
         //All migration files
-        $srcMigrationFiles = $this->findMigrationFiles(__DIR__ . '/../Migration/');
+        $srcMigrationFiles = $this->findMigrationFiles(__DIR__ . '/../../database/migrations');
         foreach ($srcMigrationFiles as $file) {
             $result = $this->processMigrationFile($file);
             if (!$result) {
