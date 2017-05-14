@@ -3,7 +3,7 @@ namespace Slince\CakePermission\Tests;
 
 use Cake\Cache\Cache;
 use Cake\Database\Connection;
-use Cake\Database\Schema\Table as TableSchema;
+use Cake\Database\Schema\TableSchema;
 use Cake\Datasource\ConnectionManager;
 use Slince\CakePermission\Exception\RuntimeException;
 use Slince\CakePermission\SchemaFactory;

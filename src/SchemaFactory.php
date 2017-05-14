@@ -6,7 +6,7 @@
 namespace Slince\CakePermission;
 
 use Cake\Core\Configure;
-use Cake\Database\Schema\Table as TableSchema;
+use Cake\Database\Schema\TableSchema;
 
 class SchemaFactory
 {
