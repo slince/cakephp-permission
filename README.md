@@ -15,7 +15,7 @@ Inspired by [Laravel Permission](https://github.com/spatie/laravel-permission)
 //Creats a role
 $role = Role::create('editor');
  
- //Givs a permission to the role
+//Givs a permission to the role
 $role->givePermission('edit article');
 
 //Adds the role to the user 
@@ -97,6 +97,7 @@ Plugin::load('Slince/CakePermission');
 ./cake permission_migrate
 ```
 If ok, now run the migrate command
+
 ```bash
 ./cake migrations migrate
 ```
@@ -195,7 +196,6 @@ $role->getAllPermissions();
 Checks whether the role has permission to do something:
 
 ```php
-
 $role->hasPermission('edit article'); //true
 
 $role->hasPermission(['edit artic;e', 'add article']); //true
@@ -207,7 +207,7 @@ $role->hasAnyPermission('edit article', 'drop article'); // true
 
 Removes the permission
 
-```
+```php
 $role->revokePermission($addPermission);
  
 //Or by its name
@@ -223,7 +223,6 @@ $role->revokeAllPermissions();
 Add the role to the user:
 
 ```php
-
 $user->assignRole($role);
 ```
 
@@ -236,7 +235,7 @@ $user->getAllRoles();
 Gets all permissions of user:
 
 ```php
-$user->getAllRoles();
+$user->getAllPermissions();
 ```
 
 Checks whether the user has permission to do something:
