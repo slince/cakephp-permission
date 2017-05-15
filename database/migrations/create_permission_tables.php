@@ -6,7 +6,7 @@
 use Migrations\AbstractMigration;
 use Cake\Core\Configure;
 
-class CreatePermissionSchema extends AbstractMigration
+class CreatePermissionTables extends AbstractMigration
 {
     public function change()
     {
@@ -53,7 +53,7 @@ class CreatePermissionSchema extends AbstractMigration
         $table->create();
 
         //creates user_roles table
-        $table = $this->table(Configure::read('Permission.tableNameMap.user_roles' ?: 'user_roles'), [
+        $table = $this->table(Configure::read('Permission.tableNameMap.users_roles') ?: 'users_roles', [
             'id' => false
         ]);
         $table->addColumn('user_id', 'integer', [
@@ -68,7 +68,7 @@ class CreatePermissionSchema extends AbstractMigration
         $table->create();
 
         //creates roles_permissions table
-        $table = $this->table(Configure::read('Permission.tableNameMap.roles_permissions' ?: 'roles_permissions'), [
+        $table = $this->table(Configure::read('Permission.tableNameMap.roles_permissions') ?: 'roles_permissions', [
             'id' => false
         ]);
         $table->addColumn('role_id', 'integer', [

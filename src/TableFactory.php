@@ -58,7 +58,7 @@ class TableFactory
      */
     public static function getModel($name)
     {
-        return TableRegistry::get($name, [
+        return TableRegistry::get("_Permission{$name}", [
             'className' => static::getModelClass($name)
         ]);
     }
