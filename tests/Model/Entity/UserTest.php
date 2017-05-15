@@ -26,10 +26,19 @@ class UserTest extends TestCase
 
     protected static $dropArticle;
 
+    /**
+     * @var Role
+     */
     protected static $adminRole;
 
+    /**
+     * @var Role
+     */
     protected static $editorRole;
 
+    /**
+     * @var Role
+     */
     protected static $guestRole;
 
     public static function setUpBeforeClass()
@@ -56,8 +65,8 @@ class UserTest extends TestCase
         static::$adminRole->givePermission(static::$editArticle);
         static::$adminRole->givePermission(static::$dropArticle);
 
-//        static::$editorRole->givePermission(static::$addArticle);
-//        static::$editorRole->givePermission(static::$editArticle);
+        static::$editorRole->givePermission(static::$addArticle);
+        static::$editorRole->givePermission(static::$editArticle);
     }
 
 
