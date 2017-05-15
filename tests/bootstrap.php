@@ -1,39 +1,17 @@
 <?php
 use Cake\Core\Configure;
 
-$findRoot = function ($root) {
-    do {
-        $lastRoot = $root;
-        $root = dirname($root);
-        if (is_dir($root . '/vendor/cakephp/cakephp')) {
-            return $root;
-        }
-    } while ($root !== $lastRoot);
-    throw new Exception('Cannot find the root of the application, unable to run tests');
-};
-
-$root = $findRoot(__FILE__);
-unset($findRoot);
-//chdir($root);
-
-require_once $root . '/vendor/cakephp/cakephp/src/basics.php';
-$autoLoader = require_once $root . '/vendor/autoload.php';
+$autoLoader = include __DIR__ .  '/../vendor/autoload.php';
 
 $autoLoader->addPsr4('TestApp\\', __DIR__ . '/TestApp/src');
 
-define('CORE_PATH', $root . DS . 'vendor' . DS . 'cakephp' . DS . 'cakephp' . DS);
 define('ROOT', __DIR__ . '/../TestApp');
 define('APP_DIR', 'src');
 define('APP', ROOT . 'src' . DS);
 define('TMP', sys_get_temp_dir() . DS);
 
-Configure::write('debug', true);
 Configure::write('App', [
-    'namespace' => 'TestApp',
-    'paths' => [
-        'plugins' => [ROOT . 'Plugin' . DS],
-        'templates' => [ROOT . 'App' . DS . 'Template' . DS]
-    ]
+    'namespace' => 'TestApp'
 ]);
 
 
