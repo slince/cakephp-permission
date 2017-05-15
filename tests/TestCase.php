@@ -15,6 +15,8 @@ class TestCase extends \PHPUnit\Framework\TestCase
      */
     protected static $connection;
 
+    protected static $schemas = [];
+
     public static function setUpBeforeClass()
     {
         if (is_null(static::$connection)) {
@@ -48,8 +50,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
                 'serialize' => true
             ]
         ];
-        method_exists(Cache::class, 'setConfig')
-            ? Cache::setConfig($configs) : Cache::config($configs);
+        Cache::setConfig($configs);
 
         //config database
         $config = [
@@ -60,28 +61,30 @@ class TestCase extends \PHPUnit\Framework\TestCase
             'cacheMetadata' => false,
             'quoteIdentifiers' => false,
         ];
-        method_exists(ConnectionManager::class, 'setConfig')
-            ? ConnectionManager::setConfig('default', $config) : ConnectionManager::config('default', $config);
+        ConnectionManager::setConfig('default', $config);
 
         static::$connection = ConnectionManager::get('default');
     }
 
     protected static function createTables()
     {
-        static::createTable(SchemaFactory::getUsersSchema());
-        static::createTable(SchemaFactory::getRolesSchema());
-        static::createTable(SchemaFactory::getPermissionsSchema());
-        static::createTable(SchemaFactory::getUsersRolesSchema());
-        static::createTable(SchemaFactory::getRolesPermissionsSchema());
+        static::$schemas = [
+            SchemaFactory::getUsersSchema(),
+            SchemaFactory::getRolesSchema(),
+            SchemaFactory::getPermissionsSchema(),
+            SchemaFactory::getUsersRolesSchema(),
+            SchemaFactory::getRolesPermissionsSchema(),
+        ];
+        foreach (static::$schemas as $schema) {
+            static::createTable($schema);
+        }
     }
 
     protected static function dropTables()
     {
-        static::dropTable(SchemaFactory::getUsersSchema());
-        static::dropTable(SchemaFactory::getRolesSchema());
-        static::dropTable(SchemaFactory::getPermissionsSchema());
-        static::dropTable(SchemaFactory::getUsersRolesSchema());
-        static::dropTable(SchemaFactory::getRolesPermissionsSchema());
+        foreach (static::$schemas as $schema) {
+            static::dropTable($schema);
+        }
     }
 
     protected static function createTable(TableSchema $schema)

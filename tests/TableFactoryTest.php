@@ -2,6 +2,7 @@
 namespace Slince\CakePermission\Tests;
 
 use Cake\Core\Configure;
+use Cake\ORM\TableRegistry;
 use Slince\CakePermission\Model\Table\PermissionsTable;
 use Slince\CakePermission\Model\Table\RolesTable;
 use Slince\CakePermission\Model\Table\UsersTable;
@@ -12,6 +13,7 @@ class TableFactoryTest extends TestCase
     public function setUp()
     {
         Configure::delete('Permission');
+        TableRegistry::clear();
     }
 
     public function testGetModelClass()

@@ -5,7 +5,7 @@
 [![Latest Stable Version](https://img.shields.io/packagist/v/slince/cakephp-permission.svg?style=flat-square&label=stable)](https://packagist.org/packages/slince/cakephp-permission)
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/slince/cakephp-permission.svg?style=flat-square)](https://scrutinizer-ci.com/g/slince/cakephp-permission/?branch=master)
 
-The library provides a flexible way to add role-based access control management to CakePHP 3.x.  
+The library provides a flexible way to add role-based access control management to CakePHP 3.x
 
 Inspired by [Laravel Permission](https://github.com/spatie/laravel-permission)
 
@@ -259,9 +259,13 @@ $user->removeRole('editor');
 $user->removeAllRoles(); 
 ```
 
+## Extending
+
+You can extends all existing Entity or Table. Do not forget to modify the default configuration in your `app.php`
+
 ## Requirements
 
-- CakePHP 3.x
+- CakePHP >=3.4
 - PHP 5.5.9+
 
 ## LICENSE
