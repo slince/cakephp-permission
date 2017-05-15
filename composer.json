@@ -1,7 +1,7 @@
 {
     "name": "slince/cakephp-permission",
     "description": "The library provides a flexible way to add role-based access control management to CakePHP 3.x",
-    "keywords": ["cakephp", "permission","RBAC", "role-based", "security", "manage permission", "manage roles", "manage users"],
+    "keywords": ["cakephp", "permission","RBAC", "role based", "security", "manage permission", "manage roles", "manage users"],
     "type": "cakephp-plugin",
     "license": "MIT",
     "authors": [
