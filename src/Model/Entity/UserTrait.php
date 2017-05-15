@@ -87,9 +87,14 @@ trait UserTrait
     public function getAllPermissions()
     {
         $roles = $this->getAllRoles();
-        return call_user_func_array('array_merge', array_map(function(Role $role){
+//        foreach ($roles as $role) {
+//            echo $role->name, '***';
+//            echo count($role->getAllPermissions()), PHP_EOL;
+//        }
+//        exit;
+        return $roles ? call_user_func_array('array_merge', array_map(function(Role $role){
             return $role->getAllPermissions();
-        }, $roles));
+        }, $roles)) : [];
     }
 
     /**

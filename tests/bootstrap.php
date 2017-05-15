@@ -14,7 +14,7 @@ Configure::write('App', [
     'namespace' => 'TestApp'
 ]);
 
-
+//\Cake\Cache\Cache::disable();
 Configure::write('Permission', [
     'tableNameMap' => [
         /**
