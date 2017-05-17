@@ -14,6 +14,9 @@
     <filter>
         <whitelist>
             <directory>./src</directory>
+            <exclude>
+                <directory>./src/Shell</directory>
+            </exclude>
         </whitelist>
     </filter>
 </phpunit>
