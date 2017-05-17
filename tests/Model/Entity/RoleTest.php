@@ -21,7 +21,7 @@ class RoleTest extends TestCase
      */
     public function testRepeatCreate()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         Role::create('foo');
     }
 
@@ -32,7 +32,7 @@ class RoleTest extends TestCase
     {
         $permission = Role::find('foo');
         $this->assertEquals('foo', $permission->name);
-        $this->setExpectedException(RecordNotFoundException::class);
+        $this->expectException(RecordNotFoundException::class);
         Role::find('not-exists-Role');
     }
 
@@ -51,7 +51,7 @@ class RoleTest extends TestCase
         $this->assertTrue($role->givePermission($addPermission));
         $this->assertTrue($role->givePermission('edit article'));
 
-        $this->setExpectedException(RecordNotFoundException::class);
+        $this->expectException(RecordNotFoundException::class);
         $role->givePermission('not-exists-permission');
     }
 

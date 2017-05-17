@@ -20,7 +20,7 @@ class PermissionTest extends TestCase
      */
     public function testRepeatCreate()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         Permission::create('foo');
     }
 
@@ -31,7 +31,7 @@ class PermissionTest extends TestCase
     {
         $permission = Permission::find('foo');
         $this->assertEquals('foo', $permission->name);
-        $this->setExpectedException(RecordNotFoundException::class);
+        $this->expectException(RecordNotFoundException::class);
         Permission::find('not-exists-permission');
     }
 

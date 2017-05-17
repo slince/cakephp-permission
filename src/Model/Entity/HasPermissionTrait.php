@@ -41,7 +41,7 @@ trait HasPermissionTrait
      * @param array $names
      * @return bool
      */
-    public function hasAnyPermission($names)
+    public function hasAnyPermission(array $names)
     {
         $hasPermission = false;
         foreach ($names as $permissionName) {

@@ -6,10 +6,8 @@
 namespace Slince\CakePermission\Model\Entity;
 
 use Cake\Cache\Cache;
-use Cake\Core\Configure;
+use Cake\Collection\Collection;
 use Cake\ORM\Query;
-use Cake\ORM\Table;
-use Cake\ORM\TableRegistry;
 use Slince\CakePermission\Constants;
 use Slince\CakePermission\Model\Table\RolesTableTrait;
 use Slince\CakePermission\TableFactory;
@@ -25,18 +23,22 @@ trait UserTrait
      */
     public function can($permission)
     {
-        return $this->hasAnyPermission($permission);
+        return $this->hasAnyPermission((array)$permission);
     }
 
     /**
-     * Assigns a role for the user
-     * @param string|Role $role
+     * Assigns a role or an array of roles for the user
+     * @param string|Role|array $role
      * @return boolean
      */
     public function assignRole($role)
     {
-        $role = is_string($role) ? Role::find($role) : $role;
-        $result = TableFactory::getUserModel()->association('Roles')->link($this, [$role]);
+        $roles = is_array($role) ? $role : [$role];
+        $roles = array_map(function($role){
+            return is_string($role) ? Role::find($role) : $role;
+        }, $roles);
+        $this->set('roles', $roles);
+        $result = TableFactory::getUserModel()->save($this) !== false;
         RolesTableTrait::refreshCache($this->id);
         return $result;
     }
@@ -87,14 +89,12 @@ trait UserTrait
     public function getAllPermissions()
     {
         $roles = $this->getAllRoles();
-//        foreach ($roles as $role) {
-//            echo $role->name, '***';
-//            echo count($role->getAllPermissions()), PHP_EOL;
-//        }
-//        exit;
-        return $roles ? call_user_func_array('array_merge', array_map(function(Role $role){
+        $permissions = $roles ? call_user_func_array('array_merge', array_map(function(Role $role){
             return $role->getAllPermissions();
         }, $roles)) : [];
+        return (new Collection($permissions))->combine('slug', function($permission){
+            return $permission;
+        })->toArray();
     }
 
     /**

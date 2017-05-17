@@ -50,8 +50,8 @@ class UserTest extends TestCase
         static::$admin = TableFactory::getUserModel()->newEntity([
             'name' => 'bar'
         ]);
-        TableFactory::getUserModel()->save(static::$user );
-        TableFactory::getUserModel()->save( static::$admin );
+        TableFactory::getUserModel()->save(static::$user);
+        TableFactory::getUserModel()->save( static::$admin);
 
         static::$addArticle = Permission::create('add article');
         static::$editArticle = Permission::create('edit article');
@@ -74,6 +74,7 @@ class UserTest extends TestCase
     {
         $this->assertTrue(static::$user->assignRole(static::$editorRole));
         $this->assertTrue(static::$user->assignRole('guest'));
+        $this->assertTrue(static::$user->assignRole(['editor', 'guest']));
     }
 
     /**
@@ -115,8 +116,9 @@ class UserTest extends TestCase
     public function testGetAllPermissions()
     {
         $this->assertCount(0, static::$user->getAllPermissions());
-        $this->assertTrue(static::$user->assignRole(static::$adminRole));
-        $this->assertCount(2, static::$user->getAllPermissions());
+        static::$user->assignRole(static::$adminRole);
+        static::$user->assignRole(static::$editorRole);
+        $this->assertCount(3, static::$user->getAllPermissions());
     }
 
     /**
@@ -124,6 +126,9 @@ class UserTest extends TestCase
      */
     public function testHasPermission()
     {
+        static::$user->removeRole('admin');
+        static::$user->assignRole('editor');
+
         $this->assertTrue(static::$user->hasPermission('add article'));
         $this->assertTrue(static::$user->hasPermission(['add article', 'edit article']));
         $this->assertFalse(static::$user->hasPermission(['add article', 'edit article', 'drop article']));

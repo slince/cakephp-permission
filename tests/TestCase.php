@@ -22,6 +22,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
         if (is_null(static::$connection)) {
             static::setUpDatabaseConnection();
         }
+        static::dropTables();
         static::createTables();
     }
 
@@ -62,7 +63,6 @@ class TestCase extends \PHPUnit\Framework\TestCase
             'quoteIdentifiers' => false,
         ];
         ConnectionManager::setConfig('default', $config);
-
         static::$connection = ConnectionManager::get('default');
     }
 
@@ -101,9 +101,11 @@ class TestCase extends \PHPUnit\Framework\TestCase
 
     protected static function dropTable(TableSchema $schema)
     {
-        $sql = $schema->dropSql(static::$connection);
-        foreach ($sql as $query) {
-            static::$connection->execute($query);
+        if (in_array($schema->name(), static::$connection->getSchemaCollection()->listTables())) {
+            $sql = $schema->dropSql(static::$connection);
+            foreach ($sql as $query) {
+                static::$connection->execute($query);
+            }
         }
     }
 }

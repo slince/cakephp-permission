@@ -19,16 +19,18 @@ trait RoleTrait
     use HasPermissionTrait;
 
     /**
-     * Gives a permission
-     * @param string|Permission $permission
+     * Gives the permission or an array of permissions
+     * @param string|Permission|array $permission
      * @return bool
      */
     public function givePermission($permission)
     {
-        if (is_string($permission)) {
-            $permission = Permission::find($permission);
-        }
-        $result = TableFactory::getRoleModel()->association('Permissions')->link($this, [$permission]);
+        $permissions = is_array($permission) ? $permission : [$permission];
+        $permissions = array_map(function($permission){
+            return is_string($permission) ? Permission::find($permission) : $permission;
+        }, $permissions);
+        $this->set('permissions', $permissions);
+        $result = TableFactory::getRoleModel()->save($this) !== false;
         PermissionsTableTrait::refreshCache($this->id);
         return $result;
     }
