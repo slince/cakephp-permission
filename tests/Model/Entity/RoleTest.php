@@ -77,4 +77,22 @@ class RoleTest extends TestCase
         $role->givePermission(Permission::create('drop article'));
         $this->assertCount(3, $role->getAllPermissions());
     }
+
+    /**
+     * @depends testGetPermissions
+     */
+    public function testRevokePermission()
+    {
+        $role = Role::find('editor');
+        $this->assertTrue($role->hasPermission('add article'));
+
+        $role->revokePermission('add article');
+        $this->assertFalse($role->hasPermission('add article'));
+
+        $role->revokePermission(Permission::find('edit article'));
+        $this->assertFalse($role->hasPermission('edit article'));
+
+        $role->revokeAllPermissions();
+        $this->assertCount(0, $role->getAllPermissions());
+    }
 }
