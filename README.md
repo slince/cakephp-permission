@@ -185,6 +185,9 @@ $role->givePermission($editPermission);
 //You can also directly give them by thier name
 $role->givePermission('add article');
 $role->givePermission('edit article');
+
+//You can also give multiple permissions at once
+$role->givePermission(['add article', 'edit article']);
 ```
 
 Gets all permissions of the role
@@ -224,6 +227,11 @@ Add the role to the user:
 
 ```php
 $user->assignRole($role);
+
+$user->assignRole('editor');
+
+//You can also assign multiple roles at once
+$user->assignRole(['editor', 'other role']);
 ```
 
 Gets all the roles of user

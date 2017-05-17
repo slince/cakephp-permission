@@ -1,6 +1,7 @@
 <?php
 namespace Slince\CakePermission\Tests\Model\Table;
 
+use Cake\Core\Configure;
 use Cake\ORM\Association\BelongsToMany;
 use Slince\CakePermission\TableFactory;
 use Slince\CakePermission\Tests\TestCase;
@@ -27,5 +28,11 @@ class RolesTableTest extends TestCase
             'slug' => 'foo'
         ], ['validate' => 'permission']);
         $this->assertNotEmpty($role->getErrors());
+    }
+
+    public function testInitialize()
+    {
+        $roles = TableFactory::getModel('Roles');
+        $this->assertEquals(Configure::read('Permission.tableNameMap.roles') ?: 'roles', $roles->getTable());
     }
 }
