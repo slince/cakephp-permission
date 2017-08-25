@@ -7,7 +7,7 @@ namespace Slince\CakePermission\Model\Entity;
 
 use Cake\ORM\Entity;
 
-class Role extends Entity
+class Role extends Entity implements RoleInterface
 {
     use RoleTrait;
 
@@ -19,4 +19,12 @@ class Role extends Entity
         'id' => false,
         '*' => true
     ];
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        return $this->get('name');
+    }
 }

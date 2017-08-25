@@ -14,8 +14,8 @@ trait PermissionTrait
 {
     /**
      * Gets the permission by its name
-     * @param $name
-     * @return Permission
+     * @param string $name
+     * @return PermissionInterface
      */
     public static function find($name)
     {
@@ -24,8 +24,8 @@ trait PermissionTrait
 
     /**
      * Creates a role
-     * @param $arguments
-     * @return Permission
+     * @param string|array $arguments
+     * @return PermissionInterface
      */
     public static function create($arguments)
     {
@@ -45,8 +45,8 @@ trait PermissionTrait
 
     /**
      * Finds the permission by its name, if it does not exists, the role will be created
-     * @param $name
-     * @return Permission
+     * @param string $name
+     * @return PermissionInterface
      */
     public static function findOrCreate($name)
     {

@@ -20,7 +20,7 @@ trait RoleTrait
 
     /**
      * Gives the permission or an array of permissions
-     * @param string|Permission|array $permission
+     * @param string|PermissionInterface|array $permission
      * @return bool
      */
     public function givePermission($permission)
@@ -37,7 +37,7 @@ trait RoleTrait
 
     /**
      * Revokes the permissions of the role
-     * @param $permission
+     * @param string|PermissionInterface $permission
      * @return
      */
     public function revokePermission($permission)
@@ -64,7 +64,7 @@ trait RoleTrait
 
     /**
      * Gets all permissions for the role
-     * @return Permission[]
+     * @return PermissionInterface[]
      */
     public function getAllPermissions()
     {
@@ -80,7 +80,7 @@ trait RoleTrait
     /**
      * Finds the role by its name
      * @param string $name
-     * @return RoleTrait
+     * @return RoleInterface
      */
     public static function find($name)
     {
@@ -90,7 +90,7 @@ trait RoleTrait
     /**
      * Creates a role
      * @param $arguments
-     * @return RoleTrait
+     * @return RoleInterface
      */
     public static function create($arguments)
     {
@@ -109,8 +109,8 @@ trait RoleTrait
 
     /**
      * Finds the role, if it does not exists, the role will be created
-     * @param $name
-     * @return RoleTrait
+     * @param string $name
+     * @return RoleInterface
      */
     public static function findOrCreate($name)
     {

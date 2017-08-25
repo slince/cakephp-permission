@@ -7,7 +7,7 @@ namespace Slince\CakePermission\Model\Entity;
 
 use Cake\ORM\Entity;
 
-class Permission extends Entity
+class Permission extends Entity implements PermissionInterface
 {
     use PermissionTrait;
 
@@ -19,4 +19,12 @@ class Permission extends Entity
         'id' => false,
         '*' => true
     ];
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        return $this->get('name');
+    }
 }

@@ -28,7 +28,7 @@ trait UserTrait
 
     /**
      * Assigns a role or an array of roles for the user
-     * @param string|Role|array $role
+     * @param string|RoleInterface|array $role
      * @return boolean
      */
     public function assignRole($role)
@@ -45,7 +45,7 @@ trait UserTrait
 
     /**
      * Revokes the specified role from the user
-     * @param string|Role $role
+     * @param string|RoleInterface $role
      * @return boolean
      */
     public function removeRole($role)
@@ -68,14 +68,14 @@ trait UserTrait
 
     /**
      * Checks whether the user has thr role
-     * @param string|Role $role
+     * @param string|RoleInterface $role
      * @return bool
      */
     public function hasRole($role)
     {
-        $roleName = is_string($role) ? $role : $role->get('name');
+        $roleName = is_string($role) ? $role : $role->getName();
         foreach ($this->getAllRoles() as $role) {
-            if ($role->get('name') == $roleName) {
+            if ($role->getName() == $roleName) {
                 return true;
             }
         }
@@ -84,12 +84,12 @@ trait UserTrait
 
     /**
      * Gets all the permissions for the user
-     * @return Role[]
+     * @return PermissionInterface[]
      */
     public function getAllPermissions()
     {
         $roles = $this->getAllRoles();
-        $permissions = $roles ? call_user_func_array('array_merge', array_map(function(Role $role){
+        $permissions = $roles ? call_user_func_array('array_merge', array_map(function(RoleInterface $role){
             return $role->getAllPermissions();
         }, $roles)) : [];
         return (new Collection($permissions))->combine('slug', function($permission){
@@ -99,7 +99,7 @@ trait UserTrait
 
     /**
      * Gets all roles of the user
-     * @return Role[]
+     * @return RoleInterface[]
      */
     public function getAllRoles()
     {
